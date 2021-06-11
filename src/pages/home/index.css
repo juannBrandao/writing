@@ -1,0 +1,6 @@
+.Feed{
+  width: 80vw;
+  height: 70vh;
+  overflow-y: scroll;
+  padding: 0 7vw;
+}
