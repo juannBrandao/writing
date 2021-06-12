@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../services/api";
-import "./index.css";
+import "./styles.js";
+import {Container, Feed, CardText } from "./styles";
 import { getToken, logout } from "../../services/auth";
 const Home = () => {
   const [feeds, setFeeds] = useState([]);
@@ -37,33 +38,30 @@ const Home = () => {
     history.push("/");
   }
   return (
-    <div className="profile-container">
+    <Container className="profile-container">
       <header>
         <span>Bem vindo !</span>
-
-        {/* <Link className="button" to="/incidents/new">New Post</Link> */}
         <button onClick={handleLogout} type="button">
           sair
         </button>
       </header>
       <h1>Todos os Posts</h1>
 
-      <ul className="Feed">
+      <Feed className="Feed">
         {feeds.map((feed) => (
           <li key={feed.id}>
-            <strong>mensagem:</strong>
-            <p>{feed.content}</p>
-            <strong>likes</strong>
-            <p>{feed.likes}</p>
-            <strong>loves</strong>
-            <p>{feed.loves}</p>
+            <CardText>
+              <header><strong>{feed.author.username}</strong></header>
+              <section>{feed.content}</section>
+              <footer>{feed.likes} {feed.loves}</footer>
+            </CardText>
           </li>
         ))}
-      </ul>
+      </Feed>
       <button onClick={handleNewPost} type="button">
           Publicar
         </button>
-    </div>
+    </Container>
   );
 };
 
