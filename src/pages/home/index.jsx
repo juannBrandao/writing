@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../services/api";
 import "./styles.js";
-import {Container, Feed, CardText } from "./styles";
+import { Container, Feed, CardText, BoxNewFeed } from "./styles";
 import { getToken, logout } from "../../services/auth";
 const Home = () => {
   const [feeds, setFeeds] = useState([]);
@@ -11,26 +11,49 @@ const Home = () => {
   const Token = getToken();
 
   useEffect(() => {
-    api.get("/feeds")
-     .then(function (response) {
+    api
+      .get("/feeds")
+      .then(function (response) {
         setFeeds(response.data);
       })
       .catch(function (error) {
         console.error(error);
       });
-
   }, [Token]);
 
-  async function handleNewPost(){
-      try {
-          await api.post(`feed/`,{
-            content: 'xxxx',
-          });
+  async function handleNewPost() {
+    try {
+      await api.post(`feed/`, {
+        content: newFeed,
+      });
+    } catch (error) {
+      alert("Erro ao Publicar seu Post");
+    }
+  }
+  async function handleNewLikeReaction(feedId, activeUserLikedIt) {
+    var like = false;
+    activeUserLikedIt === 1 ? like=false : like=true
+    try {
+      await api.post(`reaction/`, {
+        feedId: feedId,
+        like: like,
+      });
+    } catch (error) {
+      alert("Erro ao Publicar seu Post");
+    }
+  }
+  async function handleNewLoveReaction(feedId, activeUserLovedIt) {
+    var love = false;
+    activeUserLovedIt === 1 ? love=false : love=true
+    try {
+      await api.post(`reaction/`, {
+        feedId: feedId,
+        love: love
+      });
 
-          // setIncidents(incidents.filter(incident => incident.id !== id))
-      } catch (error) {
-          alert('Erro ao Publicar seu Post')
-      }
+    } catch (error) {
+      alert("Erro ao Publicar seu Post");
+    }
   }
 
   function handleLogout() {
@@ -51,16 +74,30 @@ const Home = () => {
         {feeds.map((feed) => (
           <li key={feed.id}>
             <CardText>
-              <header><strong>{feed.author.username}</strong></header>
+              <header>
+                <strong>{feed.author.username}</strong>
+              </header>
               <section>{feed.content}</section>
-              <footer>{feed.likes} {feed.loves}</footer>
+              <footer>
+                <button type="button" onClick={ () =>handleNewLikeReaction(feed.id, feed.activeUserLikedIt)}>like</button>
+                {feed.likes}
+                <button type="button" onClick={() => handleNewLoveReaction(feed.id, feed.activeUserLikedIt)}>amei</button>
+                 {feed.loves}
+              </footer>
             </CardText>
           </li>
         ))}
       </Feed>
-      <button onClick={handleNewPost} type="button">
+      <BoxNewFeed>
+        <input
+          type="txt"
+          placeholder="Seu texto"
+          onChange={(e) => setNewFeed(e.target.value)}
+        />
+        <button onClick={handleNewPost} type="button">
           Publicar
         </button>
+      </BoxNewFeed>
     </Container>
   );
 };

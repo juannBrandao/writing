@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -16,9 +15,26 @@ export const Feed = styled.ul`
   list-style: none;
 `;
 export const CardText = styled.div`
-    background: #FFF;
-    border-radius: 25px;
-    padding: 2% 4%;
-    box-shadow: -8px 8px 7px -2px #000000;
-    margin-bottom: 4%;
+  background: #fff;
+  border-radius: 25px;
+  padding: 2% 4%;
+  box-shadow: -8px 8px 7px -7px #000000;
+  margin-bottom: 4%;
+  transition: 0.5s;
+  :hover {
+    box-shadow: -8px 8px 7px -3px #000000;
+  }
+`;
+export const BoxNewFeed = styled.div`
+  display: flex;
+  input {
+    width: 58vw;
+    margin-top: 1vh;
+    height: 4vh;
+    margin-right: 5px;
+  }
+  button{
+    margin-top: 1vh;
+    height: 4vh;
+  }
 `;
