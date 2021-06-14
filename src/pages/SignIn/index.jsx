@@ -14,13 +14,17 @@ const SignIn = () => {
       alert("Preencha e-mail e senha para continuar!");
     } else {
       try {
+        console.log("try entrou asnodhdallkdasçda")
         const response = await api.post("/sign-in", {
           username: usuario,
           password: senha,
         });
+        console.log(response.data)
         login(response.data);
+        console.log("pos login")
         history.push("/home");
       } catch (err) {
+        console.log("bollcate entrou asnodhdallkdasçda")
         alert("Houve um problema com o login, verifique suas credenciais. T.T");
       }
     }
@@ -29,16 +33,18 @@ const SignIn = () => {
     <Container>
     <Form onSubmit={handleSignIn}>
       <input
+        data-testid="userName"
         type="text"
         placeholder="Nome de usuário"
         onChange={(e) => setUsuario(e.target.value)}
       />
       <input
+        data-testid="userPassword"
         type="password"
         placeholder="Senha"
         onChange={(e) => setSenha(e.target.value)}
       />
-      <button type="submit">Entrar</button>
+      <button data-testid="loginButton" type="submit">Entrar</button>
       <hr />
       <Link to="/signup">Criar Conta</Link>
     </Form>

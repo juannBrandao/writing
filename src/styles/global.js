@@ -14,6 +14,9 @@ body, html {
   -webkit-font-smoothing: antialiased !important;
   height: 100%;
   width: 100%;
+  button{
+    cursor: pointer;
+  }
 }
 `;
 export default GlobalStyle;
