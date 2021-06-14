@@ -3,18 +3,16 @@ import { useHistory } from "react-router-dom";
 import api from "../../services/api";
 import "./styles.js";
 import { Container, Feed, CardText, BoxNewFeed } from "./styles";
-import { getToken, logout } from "../../services/auth";
+import { logout } from "../../services/auth";
 import Nav from "../../Components/Nav/index";
 import { LogOff, Send, Love, Like } from "../../svgs";
 const Home = () => {
-  console.log("minha milongaçkdfjhslfsklsfmgfskl")
 
   const [feeds, setFeeds] = useState([]);
   const [newFeed, setNewFeed] = useState();
   const history = useHistory();
-  const Token = getToken();
   useEffect(() => {
-    // handleFeeds();
+    handleFeeds();
   }, []);
   function handleFeeds() {
     api

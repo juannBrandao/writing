@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import api from "../../services/api";
 import { login } from "../../services/auth";
 import { Form, Container } from "./styles";
-const SignIn = () => {
+const SignUp = () => {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const history = useHistory();
@@ -11,18 +11,19 @@ const SignIn = () => {
   async function handleSignIn(e) {
     e.preventDefault();
     if (!usuario || !senha) {
-      alert("Preencha e-mail e senha para continuar!");
+      alert("Preencha Nome e senha para continuar!");
     } else {
       try {
-        const response = await api.post("/sign-in", {
+        const response = await api.post("/sign-up", {
           username: usuario,
           password: senha,
         });
-        login(response.data);
-        console.log("pos login")
-        history.push("/home");
+        // console.log(response.data)
+        // login(response.data);
+        // console.log("pos login")
+        history.push("/");
       } catch (err) {
-        alert("Houve um problema com o login, verifique suas credenciais. T.T");
+        alert("Houve um problema  ao criar conta, verifique suas credenciais. T.T");
       }
     }
   }
@@ -41,11 +42,11 @@ const SignIn = () => {
         placeholder="Senha"
         onChange={(e) => setSenha(e.target.value)}
       />
-      <button data-testid="loginButton" type="submit">Entrar</button>
+      <button data-testid="loginButton" type="submit">Criar</button>
       <hr />
-      <Link to="/signup">Criar Conta</Link>
+      <Link to="/">Login</Link>
     </Form>
   </Container>
   );
 };
-export default SignIn;
+export default SignUp;
